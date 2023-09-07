@@ -1,0 +1,7 @@
+.table {
+    --bs-table-color: var(--bs-primary);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--bs-border-color);
+    margin-bottom: 0;
+    border-color: var(--bs-primary);
+}

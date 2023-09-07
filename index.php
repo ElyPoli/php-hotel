@@ -54,20 +54,45 @@ $hotels = [
 
     <!-- Icona -->
     <link rel="icon" href="img/icon-logo.png">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <div class="bg-info-subtle vh-100">
+        <div class="container">
+            <h1 class="fw-bold text-primary text-center m-0 pt-5 pb-5">
+                PHP Hotel
+            </h1>
 
-    <?php foreach ($hotels as $single_hotel) { ?>
-        <?php foreach ($single_hotel as $element) { ?>
-            <p>
-                <?php echo $element ?>
-            </p>
-        <?php } ?>
-    <?php } ?>
-
-
-
+            <!-- Tabella -->
+            <table class="table text-center mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Parking</th>
+                        <th scope="col">Vote</th>
+                        <th scope="col">Distance to center</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- creo le righe della tabella con un foreach su tutti i singoli hotel dell'array -->
+                    <?php foreach ($hotels as $single_hotel) { ?>
+                        <tr>
+                            <!-- con un altro foreach vado a creare le singole celle con i valori dei singoli hotel -->
+                            <?php foreach ($single_hotel as $element) { ?>
+                                <td>
+                                    <?php echo $element ?>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
