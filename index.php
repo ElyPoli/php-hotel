@@ -36,6 +36,21 @@ $hotels = [
         'distance_to_center' => 50
     ],
 ];
+
+// Ricerca - parcheggio
+$parking_search = $_GET["parking"] ?? "show-both";
+$filteredHotels = [];
+
+// Filtro gli hotel in base alla selezione dell'utente
+foreach ($hotels as $single_hotel) {
+    if ($parking_search === "with-parking" && $single_hotel["parking"] === true) {
+        $filteredHotels[] = $single_hotel;
+    } else if ($parking_search === "without-parking" && $single_hotel["parking"] === false) {
+        $filteredHotels[] = $single_hotel;
+    } else if ($parking_search === "show-both" || $parking_search === "select-option") {
+        $filteredHotels[] = $single_hotel;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +81,25 @@ $hotels = [
                 PHP Hotel
             </h1>
 
+            <!-- Form -->
+            <div class="d-flex align-items-center justify-content-center pt-3 pb-5">
+                <form method="GET" class="w-50 text-primary">
+                    <h4 class="m-0 pb-2 text-center fst-italic">Filters</h4>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Parking:</label>
+                        <select class="form-select" name="parking">
+                            <option selected value="select-option">Select an option</option>
+                            <option value="with-parking">With Parking</option>
+                            <option value="without-parking">Without Parking</option>
+                            <option value="show-both">Show Both</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-primary text-uppercase fw-bold">Search</button>
+                    </div>
+                </form>
+            </div>
+
             <!-- Tabella -->
             <table class="table text-center mt-3">
                 <thead>
@@ -79,13 +113,12 @@ $hotels = [
                 </thead>
                 <tbody>
                     <!-- creo le righe della tabella con un foreach su tutti i singoli hotel dell'array -->
-                    <?php foreach ($hotels as $single_hotel) { ?>
+                    <?php foreach ($filteredHotels as $single_hotel) { ?>
                         <tr>
                             <!-- con un altro foreach vado a creare le singole celle con i valori dei singoli hotel -->
                             <?php foreach ($single_hotel as $element => $value) { ?>
                                 <td>
                                     <?php
-                                    
                                     // ricerco se la chiave "parking" è true o false
                                     if ($element === "parking") {
                                         if ($value === true) {
