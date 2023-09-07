@@ -82,9 +82,21 @@ $hotels = [
                     <?php foreach ($hotels as $single_hotel) { ?>
                         <tr>
                             <!-- con un altro foreach vado a creare le singole celle con i valori dei singoli hotel -->
-                            <?php foreach ($single_hotel as $element) { ?>
+                            <?php foreach ($single_hotel as $element => $value) { ?>
                                 <td>
-                                    <?php echo $element ?>
+                                    <?php
+                                    
+                                    // ricerco se la chiave "parking" è true o false
+                                    if ($element === "parking") {
+                                        if ($value === true) {
+                                            echo '<i class="fa-solid fa-check"></i>';
+                                        } else {
+                                            echo '<i class="fa-solid fa-xmark"></i>';
+                                        }
+                                    } else {
+                                        echo $value;
+                                    }
+                                    ?>
                                 </td>
                             <?php } ?>
                         </tr>
