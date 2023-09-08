@@ -37,18 +37,25 @@ $hotels = [
     ],
 ];
 
-// Ricerca - parcheggio
+// Filtri
 $parking_search = $_GET["parking"] ?? "show-both";
+$vote_search = $_GET["vote"] ?? "1";
 $filteredHotels = [];
 
-// Filtro gli hotel in base alla selezione dell'utente
+// Itero su tutto l'array originale e aggiungo gli elementi che rispettano i filtri selezionati dall'utente al nuovo array
 foreach ($hotels as $single_hotel) {
-    if ($parking_search === "with-parking" && $single_hotel["parking"] === true) {
-        $filteredHotels[] = $single_hotel;
-    } else if ($parking_search === "without-parking" && $single_hotel["parking"] === false) {
-        $filteredHotels[] = $single_hotel;
-    } else if ($parking_search === "show-both" || $parking_search === "select-option") {
-        $filteredHotels[] = $single_hotel;
+
+    // Filtro voto - verifico se il voto è maggiore o uguale a quello ricercato nel filtro 
+    if (($single_hotel['vote'] >= $vote_search)) {
+
+        // Filtro parcheggio - verifico quale voce di ricerca ha selezionato l'utente
+        if (($parking_search == "with-parking") && ($single_hotel["parking"] == true)) {
+            $filteredHotels[] = $single_hotel;
+        } else if (($parking_search == "without-parking") && ($single_hotel["parking"] == false)) {
+            $filteredHotels[] = $single_hotel;
+        } else if (($parking_search == "show-both") || ($parking_search == "select-option")) {
+            $filteredHotels[] = $single_hotel;
+        }
     }
 }
 ?>
@@ -92,6 +99,17 @@ foreach ($hotels as $single_hotel) {
                             <option value="with-parking">With Parking</option>
                             <option value="without-parking">Without Parking</option>
                             <option value="show-both">Show Both</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Vote:</label>
+                        <select class="form-select" name="vote">
+                            <option selected value="1">Select an option</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
